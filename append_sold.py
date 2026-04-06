@@ -5,8 +5,10 @@ import os
 # Function for Combining CSVs
 def combine_csvs(folder_path, file_prefix, output_name):
     # Contains all matching CSV files in order
-    file_list = sorted(glob.glob(os.path.join(folder_path, f"{file_prefix}*.csv")))
-
+    file_list = [
+        f for f in sorted(glob.glob(os.path.join(folder_path, f"{file_prefix}*.csv")))
+        if "Master" not in os.path.basename(f)
+    ]
     # Empty list stores each CSV file after it is read
     all_dfs = []
 
@@ -27,10 +29,13 @@ def combine_csvs(folder_path, file_prefix, output_name):
     print(f"Saved to: {output_path}")
     print(f"Shape: {master_df.shape}\n")
 
-# Function for combining CSVs
+# Function for combining CSVs with Residential filter
 def combine_csvs_residential(folder_path, file_prefix, output_name):
     # Contains all matching CSV files in order
-    file_list = sorted(glob.glob(os.path.join(folder_path, f"{file_prefix}*.csv")))
+    file_list = [
+        f for f in sorted(glob.glob(os.path.join(folder_path, f"{file_prefix}*.csv")))
+        if "Master" not in os.path.basename(f)
+    ]
 
     # Empty list stores each CSV file after it is read
     all_dfs = []
